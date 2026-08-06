@@ -1,1 +1,1 @@
-# Infosys-AI-Knowledge-Assistant-Enterprise-GPT-
+# Infosys-AI-Knowledge-Assistant-Enterprise-GPT

@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 
 // Set NEXT_PUBLIC_API_URL in Vercel to the public Railway service URL.
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+// Deploy the admin panel separately and set this in Vercel. When it is not
+// configured, administrators stay in the main app instead of being sent to a
+// route that does not exist in this frontend deployment.
+const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL;
 
 // ===============================
 // Department Dropdown
@@ -202,9 +206,14 @@ if (view === "login") {
     localStorage.setItem("token", data.token);
   }
 
-  const userRole = (data.role || role).toLowerCase();
+  const userRole = (data.role || role).trim().toLowerCase();
+  const isAdmin = ["admin", "administrator"].includes(userRole);
 
-  router.push("/dashboard");
+  if (isAdmin && ADMIN_URL) {
+    window.location.assign(ADMIN_URL);
+  } else {
+    router.push("/dashboard");
+  }
 
 
 } else {

@@ -16,7 +16,7 @@ streamlit
 python-multipart
 pypdf
 SQLAlchemy
-psycopg2-binary
+psycopg[binary]==3.2.9
 pydantic-settings
 email-validator
 supabase

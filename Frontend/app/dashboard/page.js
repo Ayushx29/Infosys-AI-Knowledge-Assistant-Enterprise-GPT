@@ -7,7 +7,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 // Backend API URL
-const API_URL = "http://127.0.0.1:8000";
+// Set NEXT_PUBLIC_API_URL in Vercel to the public Railway service URL.
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 export default function ChatPage() {
 

@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_URL = "http://127.0.0.1:8000";
+// Set NEXT_PUBLIC_API_URL in Vercel to the public Railway service URL.
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 // ===============================
 // Department Dropdown
@@ -203,11 +204,7 @@ if (view === "login") {
 
   const userRole = (data.role || role).toLowerCase();
 
-  if (userRole === "admin") {
-    window.location.href = "http://localhost:3000/admin/dashboard";
-  } else {
-    router.push("/dashboard");
-  }
+  router.push("/dashboard");
 
 
 } else {

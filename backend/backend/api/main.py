@@ -37,9 +37,15 @@ app.include_router(chat_router)
 # CORS
 # ==========================
 
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("ALLOWED_ORIGINS", "*").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,6 +56,15 @@ app.add_middleware(
 # ==========================
 
 pipeline = RAGPipeline()
+
+
+@app.on_event("startup")
+def create_database_tables() -> None:
+    """Create the application tables when a fresh Railway database is used."""
+    from api.database import Base, engine
+    from api.models import ActivityLog, Department, Document, Role, User  # noqa: F401
+
+    Base.metadata.create_all(bind=engine)
 
 # ==========================
 # Request Schemas

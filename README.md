@@ -1,8 +1,5 @@
-Absolutely. Since this is going to be your **GitHub project README**, it should look like a real engineering project—not a tutorial dump. It should clearly show the **problem → architecture → RAG pipeline → backend → frontend → setup → API → project structure → interview value**.
 
-Below is a strong README you can use as `README.md`.
 
-````markdown
 # 🤖 Enterprise AI Knowledge Assistant
 
 An enterprise document-based AI chatbot built using **Retrieval-Augmented Generation (RAG)**.  

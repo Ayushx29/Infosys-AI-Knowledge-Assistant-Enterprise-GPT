@@ -1,0 +1,29 @@
+# Frontend Requirements
+
+Node.js >= 20.x
+npm >= 10.x
+
+# Install all dependencies
+npm install
+
+# OR install manually
+
+npm install @base-ui/react
+npm install @hookform/resolvers
+npm install @radix-ui/react-alert-dialog
+npm install axios
+npm install class-variance-authority
+npm install clsx
+npm install framer-motion
+npm install lucide-react
+npm install next
+npm install next-themes
+npm install react
+npm install react-dom
+npm install react-hook-form
+npm install recharts
+npm install shadcn
+npm install sonner
+npm install tailwind-merge
+npm install tw-animate-css
+npm install zod

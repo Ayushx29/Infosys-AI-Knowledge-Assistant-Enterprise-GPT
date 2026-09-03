@@ -17,6 +17,7 @@ python-multipart
 pypdf
 SQLAlchemy
 psycopg[binary]==3.2.9
+psycopg2
 pydantic-settings
 email-validator
 supabase

@@ -1,6 +1,8 @@
 import AddUserModal from "./AddUserModal";
+import { useState } from "react";
 
 export default function UserHeader() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="flex items-center justify-between">
 
@@ -14,7 +16,7 @@ export default function UserHeader() {
         </p>
       </div>
 
-      <AddUserModal />
+      <AddUserModal open={open} onOpenChange={setOpen} />
 
     </div>
   );

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import DataTable from "@/components/common/DataTable";
-import StatusBadge from "@/components/common/StatusBadge";
 
 import { getActivityLogs } from "@/lib/api/api";
 
@@ -63,13 +62,6 @@ export default function ActivityLogsTable() {
           label: "Timestamp",
           render: (value) =>
             new Date(value as string).toLocaleString(),
-        },
-        {
-          key: "status",
-          label: "Status",
-          render: () => (
-            <StatusBadge status="Active" />
-          ),
         },
       ]}
       data={logs}

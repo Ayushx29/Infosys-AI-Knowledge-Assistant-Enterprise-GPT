@@ -20,7 +20,6 @@ out/
 *.sqlite3
 
 # Vector database (recommended if it contains generated embeddings)
-vector_db/
 
 # OS
 .DS_Store

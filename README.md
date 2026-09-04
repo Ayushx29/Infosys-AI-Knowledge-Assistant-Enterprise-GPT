@@ -31,7 +31,7 @@ The main objectives of this project are:
 
 ### 🔎 Enterprise Knowledge Search
 
-Users can ask natural-language questions about internal organizational knowledge instead of manually searching through multiple documents.
+Users can ask natural language questions about internal organizational knowledge instead of manually searching through multiple documents.
 
 ### 📚 Document-Based Question Answering
 

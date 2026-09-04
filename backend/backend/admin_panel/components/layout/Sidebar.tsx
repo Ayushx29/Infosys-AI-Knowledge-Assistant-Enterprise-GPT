@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import {
   LayoutDashboard,
@@ -66,6 +67,23 @@ const menuItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [adminName, setAdminName] = useState("Admin");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName");
+
+    if (storedName) {
+      const updateName = window.setTimeout(() => setAdminName(storedName), 0);
+      return () => window.clearTimeout(updateName);
+    }
+  }, []);
+
+  const initials = adminName
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
 
   return (
     <aside className="flex h-screen w-72 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
@@ -134,12 +152,12 @@ export default function Sidebar() {
         <div className="rounded-2xl border border-sidebar-border bg-sidebar-accent p-4">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 text-sm font-bold text-white shadow-md">
-              RB
+              {initials}
             </div>
 
             <div>
               <p className="text-sm font-semibold">
-                Rohan Bhesara
+                {adminName}
               </p>
 
               <p className="text-xs text-sidebar-foreground/70">

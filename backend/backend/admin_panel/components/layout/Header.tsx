@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { Bell, Search, Settings } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -7,6 +9,24 @@ import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/common/ThemeToggle";
 
 export default function Header() {
+  const [adminName, setAdminName] = useState("Admin");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName");
+
+    if (storedName) {
+      const updateName = window.setTimeout(() => setAdminName(storedName), 0);
+      return () => window.clearTimeout(updateName);
+    }
+  }, []);
+
+  const initials = adminName
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background px-6">
 
@@ -46,12 +66,12 @@ export default function Header() {
         <div className="ml-2 flex items-center gap-3">
 
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-            RB
+            {initials}
           </div>
 
           <div className="hidden sm:block">
             <p className="text-sm font-medium">
-              Rohan Bhesara
+              {adminName}
             </p>
 
             <p className="text-xs text-muted-foreground">

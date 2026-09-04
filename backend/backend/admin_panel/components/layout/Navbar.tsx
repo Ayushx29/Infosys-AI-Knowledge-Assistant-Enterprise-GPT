@@ -23,10 +23,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const storedName = localStorage.getItem("userName");
 
-    if (user.name) {
-      setAdminName(user.name);
+    if (storedName) {
+      const updateName = window.setTimeout(() => setAdminName(storedName), 0);
+      return () => window.clearTimeout(updateName);
     }
   }, []);
 
@@ -41,6 +42,7 @@ export default function Navbar() {
     // Clear stored login data
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    localStorage.removeItem("userName");
     sessionStorage.clear();
 
     // Redirect to Frontend Login Page

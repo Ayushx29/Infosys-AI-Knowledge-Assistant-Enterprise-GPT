@@ -1,12 +1,24 @@
-import { Button } from "@/components/ui/button";
-import { Download, Upload } from "lucide-react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 export default function DashboardHeader() {
+  const [adminName, setAdminName] = useState("Admin");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName");
+
+    if (storedName) {
+      const updateName = window.setTimeout(() => setAdminName(storedName), 0);
+      return () => window.clearTimeout(updateName);
+    }
+  }, []);
+
   return (
     <div className="flex items-center justify-between">
       <div>
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
-          Welcome back, Rohan 👋  
+          Welcome back, {adminName} 👋
         </h1>
 
         <p className="mt-2 text-muted-foreground">

@@ -30,7 +30,6 @@ type Document = {
   title: string;
   file_name: string;
   file_path: string;
-  uploaded_by: string;
   department: string;
   created_at: string;
 };
@@ -116,21 +115,6 @@ export default function DocumentsTable({
 
             return (
               <div className="flex gap-2">
-
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={() => {
-                    if (document) {
-                      window.open(
-                        `http://localhost:8000/${document.file_path}`,
-                        "_blank"
-                      );
-                    }
-                  }}
-                >
-                  <Eye className="h-4 w-4" />
-                </Button>
 
                 <AlertDialog>
 

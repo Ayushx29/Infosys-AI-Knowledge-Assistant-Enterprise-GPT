@@ -3,15 +3,10 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import DataTable from "@/components/common/DataTable";
-import StatusBadge from "@/components/common/StatusBadge";
-import { Button } from "@/components/ui/button";
+import { Eye, Trash2, TriangleAlert } from "lucide-react";
 
-import {
-  Eye,
-  Trash2,
-  TriangleAlert,
-} from "lucide-react";
+import DataTable from "@/components/common/DataTable";
+import { Button } from "@/components/ui/button";
 
 import {
   AlertDialog,
@@ -26,169 +21,153 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import {
-  getDepartments,
-  deleteDepartment,
+  getDocuments,
+  deleteDocument,
 } from "@/lib/api/api";
 
-type Department = {
+type Document = {
   id: number;
-  name: string;
-  department_head: string;
-  is_active: boolean;
+  title: string;
+  file_name: string;
+  file_path: string;
+  department: string;
+  created_at: string;
 };
 
 type Props = {
   search: string;
-  status: string;
+  department: string;
 };
 
-export default function DepartmentsTable({
+export default function DocumentsTable({
   search,
-  status,
+  department,
 }: Props) {
-  const [departments, setDepartments] = useState<Department[]>([]);
+  const [documents, setDocuments] = useState<Document[]>([]);
 
-  const loadDepartments = async () => {
+  const loadDocuments = async () => {
     try {
-      const data = await getDepartments();
-      setDepartments(data);
+      const data = await getDocuments();
+      setDocuments(data);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to load departments");
+      toast.error("Failed to load documents");
     }
   };
 
   useEffect(() => {
-    loadDepartments();
+    loadDocuments();
   }, []);
 
   const handleDelete = async (id: number) => {
     try {
-      await deleteDepartment(id);
+      await deleteDocument(id);
 
-      toast.success("Department deleted successfully");
+      toast.success("Document deleted successfully");
 
-      await loadDepartments();
+      await loadDocuments();
     } catch (error) {
       console.error(error);
-
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Failed to delete department");
-      }
+      toast.error("Failed to delete document");
     }
   };
 
-  const filteredDepartments = departments.filter((department) => {
-    const matchesSearch =
-      department.name
-        .toLowerCase()
-        .includes(search.toLowerCase()) ||
-      department.department_head
-        .toLowerCase()
-        .includes(search.toLowerCase());
+  const filteredDocuments = documents.filter((doc) => {
+    const matchesSearch = doc.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-    const matchesStatus =
-      status === "All" ||
-      (status === "Active" && department.is_active) ||
-      (status === "Inactive" && !department.is_active);
+    const matchesDepartment =
+      department === "All" ||
+      doc.department === department;
 
-    return matchesSearch && matchesStatus;
+    return matchesSearch && matchesDepartment;
   });
 
   return (
     <DataTable
       columns={[
         {
-          key: "name",
+          key: "title",
+          label: "Document",
+        },
+        {
+          key: "department",
           label: "Department",
         },
         {
-          key: "department_head",
-          label: "Department Head",
-        },
-        {
-          key: "is_active",
-          label: "Status",
-          render: (value) => (
-            <StatusBadge
-              status={value ? "Active" : "Inactive"}
-            />
-          ),
+          key: "created_at",
+          label: "Uploaded On",
+          render: (value) =>
+            new Date(value as string).toLocaleString(),
         },
         {
           key: "id",
           label: "Actions",
-          render: (value) => (
-            <div className="flex gap-2">
+          render: (value) => {
+            const document = documents.find(
+              (doc) => doc.id === value
+            );
 
-              <Button
-                size="icon"
-                variant="ghost"
-              >
-                <Eye className="h-4 w-4" />
-              </Button>
+            return (
+              <div className="flex gap-2">
 
-              <AlertDialog>
+                <AlertDialog>
 
-                <AlertDialogTrigger asChild>
-
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                  >
-                    <Trash2 className="h-4 w-4 text-red-500" />
-                  </Button>
-
-                </AlertDialogTrigger>
-
-                <AlertDialogContent className="max-w-md rounded-3xl border shadow-2xl p-8">
-
-                  <AlertDialogHeader className="items-center text-center">
-
-                    <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-
-                      <TriangleAlert className="h-10 w-10 text-red-600" />
-
-                    </div>
-
-                    <AlertDialogTitle className="text-2xl font-bold">
-                      Delete Department
-                    </AlertDialogTitle>
-
-                    <AlertDialogDescription className="mt-2 text-base leading-6">
-                      Are you sure you want to delete this department?
-                      <br />
-                      This action cannot be undone.
-                    </AlertDialogDescription>
-
-                  </AlertDialogHeader>
-
-                  <AlertDialogFooter className="mt-6 gap-3">
-
-                    <AlertDialogCancel className="rounded-xl">
-                      Cancel
-                    </AlertDialogCancel>
-
-                    <AlertDialogAction
-                      className="rounded-xl bg-violet-600 hover:bg-violet-700 text-white"
-                      onClick={() => handleDelete(value as number)}
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      size="icon"
+                      variant="ghost"
                     >
-                      Delete Department
-                    </AlertDialogAction>
+                      <Trash2 className="h-4 w-4 text-red-500" />
+                    </Button>
+                  </AlertDialogTrigger>
 
-                  </AlertDialogFooter>
+                  <AlertDialogContent className="max-w-md rounded-3xl border shadow-2xl p-8">
 
-                </AlertDialogContent>
+                    <AlertDialogHeader className="items-center text-center">
 
-              </AlertDialog>
+                      <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
+                        <TriangleAlert className="h-10 w-10 text-red-600" />
+                      </div>
 
-            </div>
-          ),
+                      <AlertDialogTitle className="text-2xl font-bold">
+                        Delete Document
+                      </AlertDialogTitle>
+
+                      <AlertDialogDescription className="mt-2 text-base">
+                        Are you sure you want to delete this document?
+                        <br />
+                        This action cannot be undone.
+                      </AlertDialogDescription>
+
+                    </AlertDialogHeader>
+
+                    <AlertDialogFooter className="mt-6 gap-3">
+
+                      <AlertDialogCancel className="rounded-xl">
+                        Cancel
+                      </AlertDialogCancel>
+
+                      <AlertDialogAction
+                        className="rounded-xl bg-violet-600 hover:bg-violet-700 text-white"
+                        onClick={() => handleDelete(value as number)}
+                      >
+                        Delete Document
+                      </AlertDialogAction>
+
+                    </AlertDialogFooter>
+
+                  </AlertDialogContent>
+
+                </AlertDialog>
+
+              </div>
+            );
+          },
         },
       ]}
-      data={filteredDepartments}
+      data={filteredDocuments}
     />
   );
 }

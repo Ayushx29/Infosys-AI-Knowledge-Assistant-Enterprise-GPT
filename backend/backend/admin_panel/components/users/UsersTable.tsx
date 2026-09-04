@@ -148,12 +148,6 @@ export default function UsersTable({
           label: "Actions",
           render: (value) => (
             <div className="flex gap-2">
-              <Button
-                size="icon"
-                variant="ghost"
-              >
-                <Eye className="h-4 w-4" />
-              </Button>
 
               <AlertDialog>
                 <AlertDialogTrigger asChild>

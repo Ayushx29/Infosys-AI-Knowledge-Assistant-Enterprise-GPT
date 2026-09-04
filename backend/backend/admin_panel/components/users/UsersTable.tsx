@@ -19,11 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import {
-  Eye,
-  Trash2,
-  TriangleAlert,
-} from "lucide-react";
+import { Trash2, TriangleAlert } from "lucide-react";
 
 import {
   getUsers,

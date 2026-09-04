@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { Eye, Trash2, TriangleAlert } from "lucide-react";
+import { Trash2, TriangleAlert } from "lucide-react";
 
 import DataTable from "@/components/common/DataTable";
 import { Button } from "@/components/ui/button";
@@ -96,10 +96,6 @@ export default function DocumentsTable({
           label: "Department",
         },
         {
-          key: "uploaded_by",
-          label: "Uploaded By",
-        },
-        {
           key: "created_at",
           label: "Uploaded On",
           render: (value) =>
@@ -108,12 +104,7 @@ export default function DocumentsTable({
         {
           key: "id",
           label: "Actions",
-          render: (value) => {
-            const document = documents.find(
-              (doc) => doc.id === value
-            );
-
-            return (
+          render: (value) => (
               <div className="flex gap-2">
 
                 <AlertDialog>
@@ -167,8 +158,7 @@ export default function DocumentsTable({
                 </AlertDialog>
 
               </div>
-            );
-          },
+            ),
         },
       ]}
       data={filteredDocuments}

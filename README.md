@@ -1068,6 +1068,19 @@ Scattered Enterprise Knowledge
 ```
 
 ---
+# 🎥 Demo & Project Video
+
+### 🚀 Live Demo
+
+👉 **[Try the Enterprise AI Knowledge Assistant](https://infosys-ai-knowledge-assistant-ente.vercel.app)**
+
+### 🎬 Project Demo Video
+
+👉 **[Watch the Project Demo Video](https://drive.google.com/file/d/1eLrlb5lARE1fOb4WXK3Z7G8DuveXEBQV/view?usp=sharing)**
+
+
+---
+
 
 # 📄 License
 
